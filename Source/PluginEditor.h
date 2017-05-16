@@ -12,6 +12,8 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
+#include <string>
+using namespace std;
 
 
 //==============================================================================
@@ -56,8 +58,18 @@ private:
     }
 
     
-    
+      LookAndFeel_V4 otherLookAndFeel;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (NewProjectAudioProcessorEditor)
 };
+
+class OtherLookAndFeel : public LookAndFeel_V4
+{
+public:
+    OtherLookAndFeel()
+    {
+        setColour (Slider::thumbColourId, Colours::red);
+    }
+};
+
 

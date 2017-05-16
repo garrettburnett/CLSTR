@@ -26,9 +26,9 @@ NewProjectAudioProcessorEditor::NewProjectAudioProcessorEditor (NewProjectAudioP
     wetMixSlider.setPopupDisplayEnabled (false, this);
     wetMixSlider.setTextValueSuffix (" Global Wet");
     wetMixSlider.setValue(p.wetMix);
+
     
-    wetMixSlider.setColour(Slider::backgroundColourId, Colours::red);
-    
+
     dryMixSlider.setSliderStyle (Slider::LinearBarVertical);
     dryMixSlider.setRange(0.0, 1.0, 0.01);
     dryMixSlider.setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
@@ -57,6 +57,9 @@ NewProjectAudioProcessorEditor::NewProjectAudioProcessorEditor (NewProjectAudioP
     
     
 
+    getLookAndFeel().setColour (Slider::trackColourId, Colours::white);
+    getLookAndFeel().setColour (Slider::textBoxOutlineColourId, Colour::fromRGBA(255,255,255,40));
+   
 }
 
 NewProjectAudioProcessorEditor::~NewProjectAudioProcessorEditor()
@@ -119,20 +122,26 @@ void NewProjectAudioProcessorEditor::paint (Graphics& g)
     g.drawText("DELAY DESIGNER", getWidth()/2-200, 30, 400,20,Justification::centred, true);
     
     g.setFont(secondaryFont);
-    g.drawText("WET", getWidth()-58, getHeight() - 90, 40,20, Justification::centredTop, true);
+    g.drawText("WET", getWidth()-77, getHeight() - 90, 40,20, Justification::centredTop, true);
+    g.drawText("DRY", getWidth()-137, getHeight() - 90, 40,20, Justification::centredTop, true);
     
-     g.drawText("DRY", getWidth()-98, getHeight() - 90, 40,20, Justification::centredTop, true);
+    g.setColour (Colours::white);
+    g.drawLine (82, 369, 644, 369, 1);
+    
+    for(int i = 0; i<8; i++){
+        g.drawText(to_string(i+1), (80*(i+1))-16, 380, 40,20, Justification::centredTop, true);
+    }
 }
 
 void NewProjectAudioProcessorEditor::resized()
 {
-    wetMixSlider.setBounds (getWidth()-40, 100, 5, getHeight() - 200);
-    dryMixSlider.setBounds (getWidth()-80, 100, 5, getHeight() - 200);
+    wetMixSlider.setBounds (getWidth()-60, 100, 8, getHeight() - 200);
+    dryMixSlider.setBounds (getWidth()-120, 100, 8, getHeight() - 200);
     
     for(int i = 0; i< 8; i++){
+        delaysWet[i].setBounds (80*(i+1), 220, 6, getHeight() - 300);
         
-        delaysWet[i].setBounds (80*(i+1), 100, 5, getHeight() - 200);
-        
+       
     }
     
 }

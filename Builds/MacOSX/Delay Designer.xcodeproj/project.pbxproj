@@ -40,9 +40,9 @@
 		57EF5A2DC43EC8F2F3F536A5 /* RecentFilesMenuTemplate.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7D89E95A791953520AC7A0E2 /* RecentFilesMenuTemplate.nib */; };
 		60B0C99353CF6A4178A1D81B /* include_juce_audio_plugin_client_AU_1.mm in Sources */ = {isa = PBXBuildFile; fileRef = D50864CA5C8A94205B4AC0AA /* include_juce_audio_plugin_client_AU_1.mm */; };
 		6766265498750F12822BDCB6 /* include_juce_events.mm in Sources */ = {isa = PBXBuildFile; fileRef = F32F7DFDBADED0D981347252 /* include_juce_events.mm */; };
-		681119B51ECA92F4003DAB21 /* LookAndFeelCustom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 681119B31ECA92F4003DAB21 /* LookAndFeelCustom.cpp */; };
-		681119B61ECA92F4003DAB21 /* LookAndFeelCustom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 681119B31ECA92F4003DAB21 /* LookAndFeelCustom.cpp */; };
-		681119B71ECA92F4003DAB21 /* LookAndFeelCustom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 681119B31ECA92F4003DAB21 /* LookAndFeelCustom.cpp */; };
+		681A2FA71ECAC70500D5B931 /* EchoChamber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 681A2FA51ECAC70500D5B931 /* EchoChamber.cpp */; };
+		681A2FA81ECAC70500D5B931 /* EchoChamber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 681A2FA51ECAC70500D5B931 /* EchoChamber.cpp */; };
+		681A2FA91ECAC70500D5B931 /* EchoChamber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 681A2FA51ECAC70500D5B931 /* EchoChamber.cpp */; };
 		68E8B7FC1EBFBD340036177C /* RecentFilesMenuTemplate.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7D89E95A791953520AC7A0E2 /* RecentFilesMenuTemplate.nib */; };
 		68E8B7FD1EBFBD340036177C /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D2D09AC8E86A0E0439F6220 /* Accelerate.framework */; };
 		68E8B7FE1EBFBD340036177C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDB973585C8497C08947CC39 /* AudioToolbox.framework */; };
@@ -56,9 +56,6 @@
 		68E8B8061EBFBD340036177C /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61830F5DAC61CDF78F72E607 /* OpenGL.framework */; };
 		68E8B8071EBFBD340036177C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C1F5E29DC097E30FD2A7C84 /* QuartzCore.framework */; };
 		68E8B8081EBFBD340036177C /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 613DBB8D2E0C6357A789AAD1 /* WebKit.framework */; };
-		68E8B80D1EBFBD550036177C /* EchoChamber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68E8B80C1EBFBD550036177C /* EchoChamber.cpp */; };
-		68E8B80E1EBFBD550036177C /* EchoChamber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68E8B80C1EBFBD550036177C /* EchoChamber.cpp */; };
-		68E8B80F1EBFBD550036177C /* EchoChamber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68E8B80C1EBFBD550036177C /* EchoChamber.cpp */; };
 		6AA546B05084E91027C851A1 /* CoreAudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 052560C3A71F559D47AB701F /* CoreAudioKit.framework */; };
 		77009BF0C781CB78F2B9B814 /* include_juce_graphics.mm in Sources */ = {isa = PBXBuildFile; fileRef = 788A82444C959A15B8BEE7C4 /* include_juce_graphics.mm */; };
 		790F8CB6A946EC367BC4539F /* include_juce_audio_plugin_client_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6C65D86D90DC0646F2CE6AC /* include_juce_audio_plugin_client_utils.cpp */; };
@@ -133,10 +130,8 @@
 		62F8C3732F547B06BEAAF48B /* juce_graphics */ = {isa = PBXFileReference; lastKnownFileType = text; name = juce_graphics; path = ../../../JUCE/modules/juce_graphics; sourceTree = SOURCE_ROOT; };
 		64B5FD4F7A54D304DF14418A /* juce_audio_formats */ = {isa = PBXFileReference; lastKnownFileType = text; name = juce_audio_formats; path = ../../../JUCE/modules/juce_audio_formats; sourceTree = SOURCE_ROOT; };
 		66DF6C7A6460540FE9FC27D7 /* PluginEditor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PluginEditor.h; path = ../../Source/PluginEditor.h; sourceTree = SOURCE_ROOT; };
-		681119B31ECA92F4003DAB21 /* LookAndFeelCustom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LookAndFeelCustom.cpp; sourceTree = "<group>"; };
-		681119B41ECA92F4003DAB21 /* LookAndFeelCustom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LookAndFeelCustom.h; sourceTree = "<group>"; };
-		68E8B80C1EBFBD550036177C /* EchoChamber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EchoChamber.cpp; sourceTree = "<group>"; };
-		68E8B8101EBFBD6F0036177C /* EchoChamber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EchoChamber.h; sourceTree = "<group>"; };
+		681A2FA51ECAC70500D5B931 /* EchoChamber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EchoChamber.cpp; sourceTree = "<group>"; };
+		681A2FA61ECAC70500D5B931 /* EchoChamber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EchoChamber.h; sourceTree = "<group>"; };
 		69CB4E74CAD0689F08416B52 /* juce_audio_devices */ = {isa = PBXFileReference; lastKnownFileType = text; name = juce_audio_devices; path = ../../../JUCE/modules/juce_audio_devices; sourceTree = SOURCE_ROOT; };
 		6F2B378C6A6710A4B7E759A7 /* PluginProcessor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PluginProcessor.h; path = ../../Source/PluginProcessor.h; sourceTree = SOURCE_ROOT; };
 		788A82444C959A15B8BEE7C4 /* include_juce_graphics.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_graphics.mm; path = ../../JuceLibraryCode/include_juce_graphics.mm; sourceTree = SOURCE_ROOT; };
@@ -220,12 +215,10 @@
 			children = (
 				C645BB33831F17D4D02A79F1 /* PluginProcessor.cpp */,
 				6F2B378C6A6710A4B7E759A7 /* PluginProcessor.h */,
-				68E8B80C1EBFBD550036177C /* EchoChamber.cpp */,
-				68E8B8101EBFBD6F0036177C /* EchoChamber.h */,
+				681A2FA51ECAC70500D5B931 /* EchoChamber.cpp */,
+				681A2FA61ECAC70500D5B931 /* EchoChamber.h */,
 				C4DB5F19020078880133D70A /* PluginEditor.cpp */,
 				66DF6C7A6460540FE9FC27D7 /* PluginEditor.h */,
-				681119B31ECA92F4003DAB21 /* LookAndFeelCustom.cpp */,
-				681119B41ECA92F4003DAB21 /* LookAndFeelCustom.h */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -514,8 +507,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				35C8B65272C8C1FA8729A6A8 /* include_juce_audio_plugin_client_VST2.cpp in Sources */,
-				68E8B80D1EBFBD550036177C /* EchoChamber.cpp in Sources */,
-				681119B51ECA92F4003DAB21 /* LookAndFeelCustom.cpp in Sources */,
+				681A2FA71ECAC70500D5B931 /* EchoChamber.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -524,9 +516,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				60B0C99353CF6A4178A1D81B /* include_juce_audio_plugin_client_AU_1.mm in Sources */,
-				681119B61ECA92F4003DAB21 /* LookAndFeelCustom.cpp in Sources */,
 				A87DE311A0A336B6653CC307 /* include_juce_audio_plugin_client_AU_2.mm in Sources */,
-				68E8B80E1EBFBD550036177C /* EchoChamber.cpp in Sources */,
+				681A2FA81ECAC70500D5B931 /* EchoChamber.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -539,7 +530,7 @@
 				DA9C71E525CCA3DF1C448FAA /* include_juce_audio_basics.mm in Sources */,
 				D89F538F0A4FABB4B34F3F9C /* include_juce_audio_devices.mm in Sources */,
 				15C51B36D988D4038D2B23D7 /* include_juce_audio_formats.mm in Sources */,
-				68E8B80F1EBFBD550036177C /* EchoChamber.cpp in Sources */,
+				681A2FA91ECAC70500D5B931 /* EchoChamber.cpp in Sources */,
 				790F8CB6A946EC367BC4539F /* include_juce_audio_plugin_client_utils.cpp in Sources */,
 				4613AC5F9F4794365224E6C7 /* include_juce_audio_plugin_client_VST_utils.mm in Sources */,
 				4C302A8E18A96B009D848CA7 /* include_juce_audio_processors.mm in Sources */,
@@ -551,7 +542,6 @@
 				026B3ED95FF54F47062AF4F0 /* include_juce_gui_basics.mm in Sources */,
 				CAFE4CD8573E41F91A788C70 /* include_juce_gui_extra.mm in Sources */,
 				BF0C65B468AB7F0B6100EA3A /* include_juce_opengl.mm in Sources */,
-				681119B71ECA92F4003DAB21 /* LookAndFeelCustom.cpp in Sources */,
 				14CD6C8A15CD4D79ADFE3D29 /* include_juce_video.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
