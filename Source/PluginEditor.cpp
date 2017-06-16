@@ -109,7 +109,13 @@ AudioParameterFloat* NewProjectAudioProcessorEditor::getParameterForSlider (Slid
 void NewProjectAudioProcessorEditor::paint (Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
-    g.fillAll (Colour::fromRGB(148 ,176, 209));
+//    g.fillAll (Colour::fromRGB(148 ,176, 209));
+//    g.setGradientFill(ColourGradient(Colour::fromRGB(73, 135, 207),0,Colour::fromRGB(73, 135, 207), false));
+    
+    g.setGradientFill(ColourGradient(
+                        Colour::fromRGB(73, 135, 207),0,0,
+                        Colour::fromRGB(0, 68, 147),(float)getWidth(),(float) getHeight(), false));
+    g.fillAll();
     g.setColour (Colours::white);
     
     Font mainFont("Montserrat", 30.0f, Font::plain);
@@ -119,27 +125,24 @@ void NewProjectAudioProcessorEditor::paint (Graphics& g)
     secondaryFont.setExtraKerningFactor(.2);
 
     g.setFont (mainFont);
-    g.drawText("DELAY DESIGNER", getWidth()/2-200, 30, 400,20,Justification::centred, true);
     
     g.setFont(secondaryFont);
-    g.drawText("WET", getWidth()-77, getHeight() - 90, 40,20, Justification::centredTop, true);
-    g.drawText("DRY", getWidth()-137, getHeight() - 90, 40,20, Justification::centredTop, true);
+//    g.drawText("WET", getWidth()-77, getHeight() - 90, 40,20, Justification::centredTop, true);
+//    g.drawText("DRY", 50, getHeight() - 90, 40,20, Justification::centredTop, true);
     
     g.setColour (Colours::white);
     g.drawLine (82, 369, 644, 369, 1);
     
-    for(int i = 0; i<8; i++){
-        g.drawText(to_string(i+1), (80*(i+1))-16, 380, 40,20, Justification::centredTop, true);
-    }
+    
 }
 
 void NewProjectAudioProcessorEditor::resized()
 {
-    wetMixSlider.setBounds (getWidth()-60, 100, 8, getHeight() - 200);
-    dryMixSlider.setBounds (getWidth()-120, 100, 8, getHeight() - 200);
+    wetMixSlider.setBounds (getWidth()-60, 100, 15, 250);
+    dryMixSlider.setBounds (45, 100, 15, 250);
     
     for(int i = 0; i< 8; i++){
-        delaysWet[i].setBounds (80*(i+1), 220, 6, getHeight() - 300);
+        delaysWet[i].setBounds ((70*(i+1)), 250, 8, getHeight() - 300);
         
        
     }
