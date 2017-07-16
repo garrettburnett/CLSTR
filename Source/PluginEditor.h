@@ -11,7 +11,9 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
+
 #include "PluginProcessor.h"
+
 #include <string>
 using namespace std;
 
@@ -31,7 +33,7 @@ public:
     void paint (Graphics&) override;
     void resized() override;
     void timerCallback(); //to update UI sliders
-    OwnedArray<Slider> paramSliders;
+
 
 private:
     // This reference is provided as a quick way for your editor to
@@ -40,7 +42,7 @@ private:
     void sliderValueChanged (Slider* slider) override;
     AudioParameterFloat* getParameterForSlider (Slider* slider);
     
-    
+
     //PARAMETERS//
     
     Slider wetMixSlider;
@@ -50,26 +52,19 @@ private:
     //Sliders for delays//
     
     Slider delaysWet[8];
-    
+
     
     NewProjectAudioProcessor* getProcessor() const
     {
         return static_cast <NewProjectAudioProcessor*> (getAudioProcessor());
     }
+   
+    
 
-    
-      LookAndFeel_V4 otherLookAndFeel;
-    
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (NewProjectAudioProcessorEditor)
 };
 
-class OtherLookAndFeel : public LookAndFeel_V4
-{
-public:
-    OtherLookAndFeel()
-    {
-        setColour (Slider::thumbColourId, Colours::red);
-    }
-};
+
+
+
 
 

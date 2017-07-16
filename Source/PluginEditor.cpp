@@ -20,6 +20,9 @@ NewProjectAudioProcessorEditor::NewProjectAudioProcessorEditor (NewProjectAudioP
     // editor's size to whatever you need it to be.
     setSize (800, 450);
     
+    
+
+    
     wetMixSlider.setSliderStyle (Slider::LinearBarVertical);
     wetMixSlider.setRange(0.0, 1.0, 0.01);
     wetMixSlider.setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
@@ -142,9 +145,13 @@ void NewProjectAudioProcessorEditor::resized()
     dryMixSlider.setBounds (45, 100, 15, 250);
     
     for(int i = 0; i< 8; i++){
-        delaysWet[i].setBounds ((70*(i+1)), 250, 8, getHeight() - 300);
+        
+        //volume delays
+        delaysWet[i].setBounds ((70*(i+1)), 250, 8, 250);
         
        
     }
     
 }
+
+

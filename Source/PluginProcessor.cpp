@@ -13,7 +13,6 @@
 #include <string>
 using namespace std;
 
-
 //==============================================================================
 NewProjectAudioProcessor::NewProjectAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
