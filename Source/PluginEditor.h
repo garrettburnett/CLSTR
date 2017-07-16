@@ -18,12 +18,23 @@
 using namespace std;
 
 
+class MainTab  : public TabbedComponent
+{
+public:
+    
+    MainTab (AudioProcessor& p)
+    : TabbedComponent (TabbedButtonBar::TabsAtTop)
+    {
+        //        addTab ("Interface",  Colours::grey, new InterfaceComponent(s, p), true);
+        //        addTab ("Data",  Colours::grey, new DataComponent((InterfaceComponent *)getTabContentComponent(0)), true);
+    }
+};
+
+
 //==============================================================================
 /**
 */
-class NewProjectAudioProcessorEditor  : public AudioProcessorEditor,
-                                        private Slider::Listener,
-public Timer
+class NewProjectAudioProcessorEditor  : public AudioProcessorEditor, private Slider::Listener,public Timer
 {
 public:
     NewProjectAudioProcessorEditor (NewProjectAudioProcessor&);
@@ -48,6 +59,10 @@ private:
     Slider wetMixSlider;
     Slider dryMixSlider;
     
+    MainTab mt;
+   
+    
+    
     
     //Sliders for delays//
     
@@ -62,6 +77,8 @@ private:
     
 
 };
+
+
 
 
 

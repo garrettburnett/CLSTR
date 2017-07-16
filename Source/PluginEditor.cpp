@@ -14,14 +14,12 @@
 
 //==============================================================================
 NewProjectAudioProcessorEditor::NewProjectAudioProcessorEditor (NewProjectAudioProcessor& p)
-    : AudioProcessorEditor (&p), processor (p)
+: AudioProcessorEditor (&p), processor (p), mt(p)
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
     setSize (800, 450);
     
-    
-
     
     wetMixSlider.setSliderStyle (Slider::LinearBarVertical);
     wetMixSlider.setRange(0.0, 1.0, 0.01);
@@ -45,8 +43,9 @@ NewProjectAudioProcessorEditor::NewProjectAudioProcessorEditor (NewProjectAudioP
     addAndMakeVisible (&dryMixSlider);
     dryMixSlider.addListener(this);
     
+    
+    
     for(int i = 0; i< 8; i++){ //for each echo chamber
-        
         delaysWet[i].setSliderStyle (Slider::LinearBarVertical);
         delaysWet[i].setRange(0.0, 1.0, 0.01);
         delaysWet[i].setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
@@ -56,12 +55,24 @@ NewProjectAudioProcessorEditor::NewProjectAudioProcessorEditor (NewProjectAudioP
         addAndMakeVisible (&delaysWet[i]);
         delaysWet[i].addListener(this);
     }
+    
     startTimer(50);
     
-    
-
     getLookAndFeel().setColour (Slider::trackColourId, Colours::white);
     getLookAndFeel().setColour (Slider::textBoxOutlineColourId, Colour::fromRGBA(255,255,255,40));
+    
+    
+    //TAB
+    addAndMakeVisible(mt);
+    mt.getTabbedButtonBar();
+    
+    mt.setOrientation(TabbedButtonBar::Orientation::TabsAtBottom);
+    mt.setOutline(0);
+    mt.addTab("Volume", Colour::Colour(),new Slider(),true);
+    mt.addTab("Pan", Colour::Colour(),new Slider(),true);
+    mt.addTab("Pitch", Colour::Colour(),new Slider(),true);
+    mt.addTab("Filter", Colour::Colour(),new Slider(),true);
+    mt.addTab("Bit Crunch", Colour::Colour(),new Slider(),true);
    
 }
 
@@ -134,8 +145,7 @@ void NewProjectAudioProcessorEditor::paint (Graphics& g)
 //    g.drawText("DRY", 50, getHeight() - 90, 40,20, Justification::centredTop, true);
     
     g.setColour (Colours::white);
-    g.drawLine (82, 369, 644, 369, 1);
-    
+
     
 }
 
@@ -143,6 +153,7 @@ void NewProjectAudioProcessorEditor::resized()
 {
     wetMixSlider.setBounds (getWidth()-60, 100, 15, 250);
     dryMixSlider.setBounds (45, 100, 15, 250);
+    mt.setBounds(100,50,getWidth()-200, getHeight()-100);
     
     for(int i = 0; i< 8; i++){
         
