@@ -13,6 +13,8 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 
 #include "PluginProcessor.h"
+#include "CLSTRLookAndFeel.h"
+
 
 #include <string>
 using namespace std;
@@ -23,10 +25,9 @@ class MainTab  : public TabbedComponent
 public:
     
     MainTab (AudioProcessor& p)
-    : TabbedComponent (TabbedButtonBar::TabsAtTop)
+    : TabbedComponent (TabbedButtonBar::TabsAtBottom)
     {
-        //        addTab ("Interface",  Colours::grey, new InterfaceComponent(s, p), true);
-        //        addTab ("Data",  Colours::grey, new DataComponent((InterfaceComponent *)getTabContentComponent(0)), true);
+       
     }
 };
 
@@ -52,6 +53,8 @@ private:
     NewProjectAudioProcessor& processor;
     void sliderValueChanged (Slider* slider) override;
     AudioParameterFloat* getParameterForSlider (Slider* slider);
+    
+    CLSTRLookAndFeel laf;
     
 
     //PARAMETERS//

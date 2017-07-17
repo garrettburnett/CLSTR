@@ -43,6 +43,9 @@
 		681A2FA71ECAC70500D5B931 /* EchoChamber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 681A2FA51ECAC70500D5B931 /* EchoChamber.cpp */; };
 		681A2FA81ECAC70500D5B931 /* EchoChamber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 681A2FA51ECAC70500D5B931 /* EchoChamber.cpp */; };
 		681A2FA91ECAC70500D5B931 /* EchoChamber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 681A2FA51ECAC70500D5B931 /* EchoChamber.cpp */; };
+		68560B291F1C808400ED67C1 /* CLSTRLookAndFeel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68560B271F1C808400ED67C1 /* CLSTRLookAndFeel.cpp */; };
+		68560B2A1F1C808400ED67C1 /* CLSTRLookAndFeel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68560B271F1C808400ED67C1 /* CLSTRLookAndFeel.cpp */; };
+		68560B2B1F1C808400ED67C1 /* CLSTRLookAndFeel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68560B271F1C808400ED67C1 /* CLSTRLookAndFeel.cpp */; };
 		68E8B7FC1EBFBD340036177C /* RecentFilesMenuTemplate.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7D89E95A791953520AC7A0E2 /* RecentFilesMenuTemplate.nib */; };
 		68E8B7FD1EBFBD340036177C /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D2D09AC8E86A0E0439F6220 /* Accelerate.framework */; };
 		68E8B7FE1EBFBD340036177C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDB973585C8497C08947CC39 /* AudioToolbox.framework */; };
@@ -132,6 +135,8 @@
 		66DF6C7A6460540FE9FC27D7 /* PluginEditor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PluginEditor.h; path = ../../Source/PluginEditor.h; sourceTree = SOURCE_ROOT; };
 		681A2FA51ECAC70500D5B931 /* EchoChamber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EchoChamber.cpp; sourceTree = "<group>"; };
 		681A2FA61ECAC70500D5B931 /* EchoChamber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EchoChamber.h; sourceTree = "<group>"; };
+		68560B271F1C808400ED67C1 /* CLSTRLookAndFeel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CLSTRLookAndFeel.cpp; path = ../../Source/CLSTRLookAndFeel.cpp; sourceTree = "<group>"; };
+		68560B281F1C808400ED67C1 /* CLSTRLookAndFeel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLSTRLookAndFeel.h; path = ../../Source/CLSTRLookAndFeel.h; sourceTree = "<group>"; };
 		69CB4E74CAD0689F08416B52 /* juce_audio_devices */ = {isa = PBXFileReference; lastKnownFileType = text; name = juce_audio_devices; path = ../../../JUCE/modules/juce_audio_devices; sourceTree = SOURCE_ROOT; };
 		6F2B378C6A6710A4B7E759A7 /* PluginProcessor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PluginProcessor.h; path = ../../Source/PluginProcessor.h; sourceTree = SOURCE_ROOT; };
 		788A82444C959A15B8BEE7C4 /* include_juce_graphics.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_graphics.mm; path = ../../JuceLibraryCode/include_juce_graphics.mm; sourceTree = SOURCE_ROOT; };
@@ -219,6 +224,8 @@
 				681A2FA61ECAC70500D5B931 /* EchoChamber.h */,
 				C4DB5F19020078880133D70A /* PluginEditor.cpp */,
 				66DF6C7A6460540FE9FC27D7 /* PluginEditor.h */,
+				68560B271F1C808400ED67C1 /* CLSTRLookAndFeel.cpp */,
+				68560B281F1C808400ED67C1 /* CLSTRLookAndFeel.h */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -396,6 +403,9 @@
 		9A4342D3EAEDF1F0596EC733 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				KnownAssetTags = (
+					New,
+				);
 				LastUpgradeCheck = 0830;
 				TargetAttributes = {
 					4EFFC006964793261491A52C = {
@@ -438,6 +448,8 @@
 						};
 					};
 					FF540BB2E6DAFB6AB67B2D37 = {
+						DevelopmentTeam = S2R93AGUB9;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
 								enabled = 0;
@@ -506,6 +518,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68560B291F1C808400ED67C1 /* CLSTRLookAndFeel.cpp in Sources */,
 				35C8B65272C8C1FA8729A6A8 /* include_juce_audio_plugin_client_VST2.cpp in Sources */,
 				681A2FA71ECAC70500D5B931 /* EchoChamber.cpp in Sources */,
 			);
@@ -516,6 +529,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				60B0C99353CF6A4178A1D81B /* include_juce_audio_plugin_client_AU_1.mm in Sources */,
+				68560B2A1F1C808400ED67C1 /* CLSTRLookAndFeel.cpp in Sources */,
 				A87DE311A0A336B6653CC307 /* include_juce_audio_plugin_client_AU_2.mm in Sources */,
 				681A2FA81ECAC70500D5B931 /* EchoChamber.cpp in Sources */,
 			);
@@ -541,6 +555,7 @@
 				77009BF0C781CB78F2B9B814 /* include_juce_graphics.mm in Sources */,
 				026B3ED95FF54F47062AF4F0 /* include_juce_gui_basics.mm in Sources */,
 				CAFE4CD8573E41F91A788C70 /* include_juce_gui_extra.mm in Sources */,
+				68560B2B1F1C808400ED67C1 /* CLSTRLookAndFeel.cpp in Sources */,
 				BF0C65B468AB7F0B6100EA3A /* include_juce_opengl.mm in Sources */,
 				14CD6C8A15CD4D79ADFE3D29 /* include_juce_video.mm in Sources */,
 			);
@@ -662,10 +677,12 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_LINK_OBJC_RUNTIME = NO;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
 				COPY_PHASE_STRIP = NO;
 				DEPLOYMENT_LOCATION = YES;
+				DEVELOPMENT_TEAM = S2R93AGUB9;
 				DSTROOT = /;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -702,6 +719,7 @@
 				);
 				OTHER_REZFLAGS = "-d ppc_$ppc -d i386_$i386 -d ppc64_$ppc64 -d x86_64_$x86_64 -I /System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers -I \"$(DEVELOPER_DIR)/Extras/CoreAudio/AudioUnits/AUPublic/AUBase\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.NewProject;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT_ppc = macosx10.5;
 				WRAPPER_EXTENSION = component;
 			};
@@ -850,10 +868,12 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_LINK_OBJC_RUNTIME = NO;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
 				DEAD_CODE_STRIPPING = YES;
 				DEPLOYMENT_LOCATION = YES;
+				DEVELOPMENT_TEAM = S2R93AGUB9;
 				DSTROOT = /;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -891,6 +911,7 @@
 				);
 				OTHER_REZFLAGS = "-d ppc_$ppc -d i386_$i386 -d ppc64_$ppc64 -d x86_64_$x86_64 -I /System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers -I \"$(DEVELOPER_DIR)/Extras/CoreAudio/AudioUnits/AUPublic/AUBase\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.NewProject;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT_ppc = macosx10.5;
 				WRAPPER_EXTENSION = component;
 			};

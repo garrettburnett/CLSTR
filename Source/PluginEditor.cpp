@@ -16,9 +16,23 @@
 NewProjectAudioProcessorEditor::NewProjectAudioProcessorEditor (NewProjectAudioProcessor& p)
 : AudioProcessorEditor (&p), processor (p), mt(p)
 {
+    
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
     setSize (800, 450);
+    LookAndFeel::setDefaultLookAndFeel(&laf);
+    
+    //TAB
+    addAndMakeVisible(mt);
+    
+    mt.getTabbedButtonBar();
+    
+    mt.setOutline(0);
+    mt.addTab("VOLUME", Colour::Colour(),new Component(),true);
+    mt.addTab("PAN", Colour::Colour(),new Component(),true);
+    mt.addTab("PITCH", Colour::Colour(),new Component(),true);
+    mt.addTab("FILTER", Colour::Colour(),new Component(),true);
+    mt.addTab("BIT CRUNCH", Colour::Colour(),new Component(),true);
     
     
     wetMixSlider.setSliderStyle (Slider::LinearBarVertical);
@@ -58,21 +72,11 @@ NewProjectAudioProcessorEditor::NewProjectAudioProcessorEditor (NewProjectAudioP
     
     startTimer(50);
     
-    getLookAndFeel().setColour (Slider::trackColourId, Colours::white);
-    getLookAndFeel().setColour (Slider::textBoxOutlineColourId, Colour::fromRGBA(255,255,255,40));
+//    getLookAndFeel().setColour (Slider::trackColourId, Colours::white);// moved
+//    getLookAndFeel().setColour (Slider::textBoxOutlineColourId, Colour::fromRGBA(255,255,255,40));//moved 
+//    
     
-    
-    //TAB
-    addAndMakeVisible(mt);
-    mt.getTabbedButtonBar();
-    
-    mt.setOrientation(TabbedButtonBar::Orientation::TabsAtBottom);
-    mt.setOutline(0);
-    mt.addTab("Volume", Colour::Colour(),new Slider(),true);
-    mt.addTab("Pan", Colour::Colour(),new Slider(),true);
-    mt.addTab("Pitch", Colour::Colour(),new Slider(),true);
-    mt.addTab("Filter", Colour::Colour(),new Slider(),true);
-    mt.addTab("Bit Crunch", Colour::Colour(),new Slider(),true);
+   
    
 }
 
