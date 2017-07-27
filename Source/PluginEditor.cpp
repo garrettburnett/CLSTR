@@ -66,8 +66,11 @@ NewProjectAudioProcessorEditor::NewProjectAudioProcessorEditor (NewProjectAudioP
         delaysWet[i].setPopupDisplayEnabled (true, this);
         delaysWet[i].setTextValueSuffix (" Delay Wet");
         delaysWet[i].setValue(p.delayGain[i]);
-        addAndMakeVisible (&delaysWet[i]);
+//        addAndMakeVisible (&delaysWet[i]);
+        mt.getTabContentComponent(0)->addAndMakeVisible(&delaysWet[i]);
         delaysWet[i].addListener(this);
+        delaysWet[i].setLookAndFeel (&laf2);
+        
     }
     
     startTimer(50);
@@ -149,20 +152,18 @@ void NewProjectAudioProcessorEditor::paint (Graphics& g)
 //    g.drawText("DRY", 50, getHeight() - 90, 40,20, Justification::centredTop, true);
     
     g.setColour (Colours::white);
-
-    
 }
 
 void NewProjectAudioProcessorEditor::resized()
 {
-    wetMixSlider.setBounds (getWidth()-60, 100, 15, 250);
-    dryMixSlider.setBounds (45, 100, 15, 250);
-    mt.setBounds(100,50,getWidth()-200, getHeight()-100);
+    wetMixSlider.setBounds (getWidth()-62, 100, 20, 250);
+    dryMixSlider.setBounds (43, 100, 20, 250);
+    mt.setBounds(125,100,550, getHeight()-150);
     
     for(int i = 0; i< 8; i++){
         
         //volume delays
-        delaysWet[i].setBounds ((70*(i+1)), 250, 8, 250);
+        delaysWet[i].setBounds ((77*(i)), 0, 11, mt.getHeight());
         
        
     }

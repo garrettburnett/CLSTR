@@ -55,6 +55,7 @@ private:
     AudioParameterFloat* getParameterForSlider (Slider* slider);
     
     CLSTRLookAndFeel laf;
+    CLSTRLookAndFeel2 laf2;
     
 
     //PARAMETERS//
