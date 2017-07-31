@@ -44,9 +44,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "67"
-            endingLineNumber = "67"
-            landmarkName = "CLSTRLookAndFeel2::drawLinearSlider(Graphics&amp; g, int x, int y, int w, int h, float sliderPos, float minSliderPos, float maxSliderPos, const Slider::SliderStyle style, Slider&amp; slider)"
-            landmarkType = "7">
+            endingLineNumber = "67">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

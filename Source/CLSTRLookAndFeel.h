@@ -36,8 +36,13 @@ public:
     virtual void drawLinearSlider(Graphics& g, int x, int y, int width, int height, float sliderPos, float minSliderPos, float maxSliderPos,
                                   const Slider::SliderStyle style, Slider& slider);
     
-private:
+   void drawTabButton(TabBarButton& button, Graphics& g, bool isMouseOver, bool isMouseDown) override;
+        int getTabButtonBestWidth(TabBarButton&, int tabDepth) override;
     
+    
+    
+private:
+        
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(CLSTRLookAndFeel2);
 };
 

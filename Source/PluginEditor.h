@@ -58,27 +58,23 @@ private:
     CLSTRLookAndFeel2 laf2;
     
 
-    //PARAMETERS//
+    //UI COMPONENTS//
     
     Slider wetMixSlider;
     Slider dryMixSlider;
     
     MainTab mt;
-   
     
     
-    
-    //Sliders for delays//
+    //Sliders for separate effects//
     
     Slider delaysWet[8];
+    Slider pan[8];
 
-    
     NewProjectAudioProcessor* getProcessor() const
     {
         return static_cast <NewProjectAudioProcessor*> (getAudioProcessor());
     }
-   
-    
 
 };
 

@@ -41,6 +41,8 @@ NewProjectAudioProcessorEditor::NewProjectAudioProcessorEditor (NewProjectAudioP
     wetMixSlider.setPopupDisplayEnabled (false, this);
     wetMixSlider.setTextValueSuffix (" Global Wet");
     wetMixSlider.setValue(p.wetMix);
+    
+
 
     
 
@@ -71,6 +73,17 @@ NewProjectAudioProcessorEditor::NewProjectAudioProcessorEditor (NewProjectAudioP
         delaysWet[i].addListener(this);
         delaysWet[i].setLookAndFeel (&laf2);
         
+        
+        pan[i].setSliderStyle (Slider::LinearBarVertical);
+        pan[i].setRange(-1.0, 1.0, 0.01);
+        pan[i].setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
+        pan[i].setPopupDisplayEnabled (true, this);
+        pan[i].setTextValueSuffix (" Pan");
+//        pan[i].setValue(p.delayGain[i]);
+        //        addAndMakeVisible (&delaysWet[i]);
+        mt.getTabContentComponent(1)->addAndMakeVisible(&pan[i]);
+        pan[i].addListener(this);
+        pan[i].setLookAndFeel (&laf2);
     }
     
     startTimer(50);
@@ -79,7 +92,6 @@ NewProjectAudioProcessorEditor::NewProjectAudioProcessorEditor (NewProjectAudioP
 //    getLookAndFeel().setColour (Slider::textBoxOutlineColourId, Colour::fromRGBA(255,255,255,40));//moved 
 //    
     
-   
    
 }
 
@@ -159,11 +171,13 @@ void NewProjectAudioProcessorEditor::resized()
     wetMixSlider.setBounds (getWidth()-62, 100, 20, 250);
     dryMixSlider.setBounds (43, 100, 20, 250);
     mt.setBounds(125,100,550, getHeight()-150);
+
     
     for(int i = 0; i< 8; i++){
         
-        //volume delays
-        delaysWet[i].setBounds ((77*(i)), 0, 11, mt.getHeight());
+        
+        delaysWet[i].setBounds ((77*(i)), 0, 11, mt.getHeight()-30);
+        pan[i].setBounds ((77*(i)), 0, 11, mt.getHeight()-30);
         
        
     }
