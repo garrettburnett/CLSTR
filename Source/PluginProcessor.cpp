@@ -47,8 +47,14 @@ NewProjectAudioProcessor::NewProjectAudioProcessor()
                                     0.5f));//default
     }
     
-    
-    
+    for(int i =0; i<numDelays;i++){
+        addParameter(panParameters[i] =
+            new AudioParameterFloat("Pan " + to_string(i+1), //ID
+                                    "Pan " + to_string(i+1), //NAME
+                                    -1.0f,//min
+                                    1.0f,//max
+                                    0.5f));//default
+        }
 }
 
 NewProjectAudioProcessor::~NewProjectAudioProcessor()
@@ -157,12 +163,13 @@ void NewProjectAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuff
     
     for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {
+        //do for each channel (L and Right)
         float* channelData = buffer.getWritePointer (channel);
         rwIn(channel);
         for(int i =0;i< numSamples; ++i){
             const float in = channelData[i];
             rwOut(in);
-            channelData[i] = effectOut(in); //the final output data
+            channelData[i] = effectOut(in, channel); //the final output data
         }
         // ..do something to the data...
     }
@@ -196,6 +203,7 @@ void NewProjectAudioProcessor::getStateInformation (MemoryBlock& destData)
     
      for(int i = 0; i<numDelays; i++){
          MemoryOutputStream (destData, true).writeFloat(*delayParameters[i]);
+          MemoryOutputStream (destData, true).writeFloat(*panParameters[i]);
      }
     
     
@@ -211,6 +219,7 @@ void NewProjectAudioProcessor::setStateInformation (const void* data, int sizeIn
     
     for(int i = 0; i<numDelays; i++){
         *delayParameters[i] = MemoryInputStream (data, static_cast<size_t> (sizeInBytes), false).readFloat();
+         *panParameters[i] = MemoryInputStream (data, static_cast<size_t> (sizeInBytes), false).readFloat();
 
         
     }
@@ -260,17 +269,38 @@ void NewProjectAudioProcessor::rwClean(){ //reset after each process block
     }
 }
 
-float NewProjectAudioProcessor::effectOut(float _in){
+float NewProjectAudioProcessor::effectOut(float _in, int _channel){
     
     float effectOut = (*dryMixParameter * _in); //first adds the dry input
+ 
+    
+    
+    
+    //end parameter
     
     for(int i = 0; i<numDelays; i++){
-        effectOut+=(*wetMixParameter*delayData[i][echos[i].dpr] * *delayParameters[i] ); //then comes the wet outputs from each delay, multiplied by the global wetMixParameter.
-        delayGain[i] = *delayParameters[i];
+        
+        
+        //calculate parameter//
+        
+        float pDash = (*panParameters[i] + 1.0)/ 2.0;
+        float pValue;
+        
+        if(_channel == 0){
+            pValue = (1.0 - pDash);
+            
+        }
+        else if(_channel == 1){
+            pValue = pDash;
+        }   
+        
+        effectOut+=(*wetMixParameter
+                    *delayData[i][echos[i].dpr] *
+                    *delayParameters[i]
+                    *pValue
+                    ); //then comes the wet outputs from each delay, multiplied by the global wetMixParameter.
+        
     }
-    
-    wetMix = *wetMixParameter;
-    dryMix = *dryMixParameter;
     return effectOut;
 }
 

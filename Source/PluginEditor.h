@@ -65,11 +65,10 @@ private:
     
     MainTab mt;
     
-    
     //Sliders for separate effects//
     
-    Slider delaysWet[8];
-    Slider pan[8];
+    Slider delayS[8];
+    Slider panS[8];
 
     NewProjectAudioProcessor* getProcessor() const
     {

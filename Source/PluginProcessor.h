@@ -66,14 +66,17 @@ public:
     
     
     AudioParameterFloat* wetMixParameter;//index 0
-    float wetMix;
-    AudioParameterFloat* dryMixParameter;
-    float dryMix;
+//    float wetMix;
+    AudioParameterFloat* dryMixParameter;//index 1
+//    float dryMix;
     
-    AudioParameterFloat* delayParameters[8];
     
-    float delayGain[8];
     
+    AudioParameterFloat* delayParameters[8]; //2-9
+    AudioParameterFloat* panParameters[8]; //10-17
+    
+//    float delayGain[8];
+
 
 private:
     
@@ -89,7 +92,7 @@ private:
     
     void rwClean();
     
-    float effectOut(float _in);
+    float effectOut(float _in, int _channel);
 
    
     

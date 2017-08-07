@@ -21,10 +21,8 @@ EchoChamber::~EchoChamber(){
 void EchoChamber::setDelayLength(float _bpm, float _sampleRate){
     
     delayLength = (60/_bpm)/4; //default to a 16th note.
-    
     delayLength = delayLength * offset;
     delayInSamples = delayLength *_sampleRate;
-    
 }
 
 float* EchoChamber::delayData(int _channel){

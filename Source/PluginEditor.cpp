@@ -20,7 +20,7 @@ NewProjectAudioProcessorEditor::NewProjectAudioProcessorEditor (NewProjectAudioP
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
     setSize (800, 450);
-    LookAndFeel::setDefaultLookAndFeel(&laf);
+//    LookAndFeel::setDefaultLookAndFeel(&laf);
     
     //TAB
     addAndMakeVisible(mt);
@@ -40,7 +40,8 @@ NewProjectAudioProcessorEditor::NewProjectAudioProcessorEditor (NewProjectAudioP
     wetMixSlider.setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
     wetMixSlider.setPopupDisplayEnabled (false, this);
     wetMixSlider.setTextValueSuffix (" Global Wet");
-    wetMixSlider.setValue(p.wetMix);
+    wetMixSlider.setValue(p.wetMixParameter->get());
+    wetMixSlider.setLookAndFeel(&laf);
     
 
 
@@ -51,7 +52,8 @@ NewProjectAudioProcessorEditor::NewProjectAudioProcessorEditor (NewProjectAudioP
     dryMixSlider.setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
     dryMixSlider.setPopupDisplayEnabled (false, this);
     dryMixSlider.setTextValueSuffix (" Dry");
-    dryMixSlider.setValue(p.dryMix);
+    dryMixSlider.setValue(p.dryMixParameter->get());
+    dryMixSlider.setLookAndFeel(&laf);
     
     addAndMakeVisible (&wetMixSlider);
     wetMixSlider.addListener(this);
@@ -62,37 +64,37 @@ NewProjectAudioProcessorEditor::NewProjectAudioProcessorEditor (NewProjectAudioP
     
     
     for(int i = 0; i< 8; i++){ //for each echo chamber
-        delaysWet[i].setSliderStyle (Slider::LinearBarVertical);
-        delaysWet[i].setRange(0.0, 1.0, 0.01);
-        delaysWet[i].setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
-        delaysWet[i].setPopupDisplayEnabled (true, this);
-        delaysWet[i].setTextValueSuffix (" Delay Wet");
-        delaysWet[i].setValue(p.delayGain[i]);
-//        addAndMakeVisible (&delaysWet[i]);
-        mt.getTabContentComponent(0)->addAndMakeVisible(&delaysWet[i]);
-        delaysWet[i].addListener(this);
-        delaysWet[i].setLookAndFeel (&laf2);
+        delayS[i].setSliderStyle (Slider::LinearBarVertical);
+        delayS[i].setRange(0.0, 1.0, 0.01);
+        delayS[i].setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
+        delayS[i].setPopupDisplayEnabled (true, this);
+        delayS[i].setTextValueSuffix (" Delay Wet");
+        delayS[i].setValue(p.delayParameters[i]->get());
+
+        mt.getTabContentComponent(0)->addAndMakeVisible(&delayS[i]);
+        delayS[i].addListener(this);
+        delayS[i].setLookAndFeel (&laf2);
         
         
-        pan[i].setSliderStyle (Slider::LinearBarVertical);
-        pan[i].setRange(-1.0, 1.0, 0.01);
-        pan[i].setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
-        pan[i].setPopupDisplayEnabled (true, this);
-        pan[i].setTextValueSuffix (" Pan");
-//        pan[i].setValue(p.delayGain[i]);
+        panS[i].setSliderStyle (Slider::LinearBarVertical);
+        panS[i].setRange (-1, 1, 0.01);
+        panS[i].setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
+        panS[i].setPopupDisplayEnabled (true, this);
+        panS[i].setTextValueSuffix (" Pan");
+        panS[i].setValue(p.panParameters[i]->get());
         //        addAndMakeVisible (&delaysWet[i]);
-        mt.getTabContentComponent(1)->addAndMakeVisible(&pan[i]);
-        pan[i].addListener(this);
-        pan[i].setLookAndFeel (&laf2);
+        mt.getTabContentComponent(1)->addAndMakeVisible(&panS[i]);
+        panS[i].addListener(this);
+        panS[i].setLookAndFeel (&laf2);
     }
     
-    startTimer(50);
+    
+    
+    startTimer(10);
     
 //    getLookAndFeel().setColour (Slider::trackColourId, Colours::white);// moved
 //    getLookAndFeel().setColour (Slider::textBoxOutlineColourId, Colour::fromRGBA(255,255,255,40));//moved 
-//    
-    
-   
+//
 }
 
 NewProjectAudioProcessorEditor::~NewProjectAudioProcessorEditor()
@@ -103,15 +105,20 @@ void NewProjectAudioProcessorEditor::timerCallback(){ //update UI from parameter
     
     NewProjectAudioProcessor* theProcessor = getProcessor();
     
-    wetMixSlider.setValue(theProcessor->wetMix, dontSendNotification);
-    dryMixSlider.setValue(theProcessor->dryMix, dontSendNotification);
+    wetMixSlider.setValue(theProcessor->wetMixParameter->get(), dontSendNotification);
+    dryMixSlider.setValue(theProcessor->dryMixParameter->get(), dontSendNotification);
     
     for(int i = 0; i< 8; i++){
-        
-        
-        delaysWet[i].setValue(theProcessor->delayGain[i], dontSendNotification);
-    
+        delayS[i].setValue(theProcessor->delayParameters[i]->get(), dontSendNotification);
     }
+    
+    for(int i = 0; i< 8; i++){
+        panS[i].setValue(theProcessor->panParameters[i]->get(), dontSendNotification);
+    }
+    
+    //get pan value
+//     panS[0].setValue(theProcessor->pan[0], dontSendNotification);
+    
 }
 
 void NewProjectAudioProcessorEditor::sliderValueChanged (Slider* slider)
@@ -126,17 +133,21 @@ void NewProjectAudioProcessorEditor::sliderValueChanged (Slider* slider)
     }
     
     for(int i = 0; i<8; i++){ //delay sliders
-        if (slider == &delaysWet[i]){//index 1,
-            getProcessor()->setParameterNotifyingHost(i+2, (float) delaysWet[i].getValue());
+        if (slider == &delayS[i]){//indexes 2-9,
+            //we say i+2, because 0 and 1 are taken up by wet and dry global
+            getProcessor()->setParameterNotifyingHost(i+2, (float) delayS[i].getValue());
+        }
+        if (slider == &panS[i]){//indexes 2-9,
+            getProcessor()->setParameterNotifyingHost(i+10, (float) panS[i].getValue());
         }
     }
 }
     
-AudioParameterFloat* NewProjectAudioProcessorEditor::getParameterForSlider (Slider* slider)
-{
-    const OwnedArray<AudioProcessorParameter>& params = getAudioProcessor()->getParameters();
-    return dynamic_cast<AudioParameterFloat*> (params[0]);
-}
+//AudioParameterFloat* NewProjectAudioProcessorEditor::getParameterForSlider (Slider* slider)
+//{
+//    const OwnedArray<AudioProcessorParameter>& params = getAudioProcessor()->getParameters();
+//    return dynamic_cast<AudioParameterFloat*> (params[0]);
+//}
 
 //==============================================================================
 void NewProjectAudioProcessorEditor::paint (Graphics& g)
@@ -170,16 +181,12 @@ void NewProjectAudioProcessorEditor::resized()
 {
     wetMixSlider.setBounds (getWidth()-62, 100, 20, 250);
     dryMixSlider.setBounds (43, 100, 20, 250);
+    
     mt.setBounds(125,100,550, getHeight()-150);
-
     
     for(int i = 0; i< 8; i++){
-        
-        
-        delaysWet[i].setBounds ((77*(i)), 0, 11, mt.getHeight()-30);
-        pan[i].setBounds ((77*(i)), 0, 11, mt.getHeight()-30);
-        
-       
+        delayS[i].setBounds ((77*(i)), 0, 11, mt.getHeight()-30);
+        panS[i].setBounds ((77*(i)), 0, 11, mt.getHeight()-30);
     }
     
 }
