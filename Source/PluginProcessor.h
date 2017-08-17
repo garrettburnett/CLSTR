@@ -14,6 +14,8 @@
 
 #include "EchoChamber.h"
 
+
+
 //==============================================================================
 /**
 */
@@ -93,7 +95,22 @@ private:
     void rwClean();
     
     float effectOut(float _in, int _channel);
-
+    
+    
+    void filterKernel();
+    void calculateFilterCoefficients(float inCutoffFrequency);
+    
+    AudioParameterFloat *parameterCutoff;
+    float   *bKernel,
+    *aKernel,
+    *inFilterBuffer,
+    *outFilterBuffer,
+    previousCutoff;
+    enum {sampleLimit = (int)10E6};
+    
+    
+    IIRFilter filter1;
+    IIRFilter filter2;
    
     
     

@@ -42,10 +42,7 @@ NewProjectAudioProcessorEditor::NewProjectAudioProcessorEditor (NewProjectAudioP
     wetMixSlider.setTextValueSuffix (" Global Wet");
     wetMixSlider.setValue(p.wetMixParameter->get());
     wetMixSlider.setLookAndFeel(&laf);
-    
 
-
-    
 
     dryMixSlider.setSliderStyle (Slider::LinearBarVertical);
     dryMixSlider.setRange(0.0, 1.0, 0.01);
@@ -61,8 +58,6 @@ NewProjectAudioProcessorEditor::NewProjectAudioProcessorEditor (NewProjectAudioP
     addAndMakeVisible (&dryMixSlider);
     dryMixSlider.addListener(this);
     
-    
-    
     for(int i = 0; i< 8; i++){ //for each echo chamber
         delayS[i].setSliderStyle (Slider::LinearBarVertical);
         delayS[i].setRange(0.0, 1.0, 0.01);
@@ -75,9 +70,8 @@ NewProjectAudioProcessorEditor::NewProjectAudioProcessorEditor (NewProjectAudioP
         delayS[i].addListener(this);
         delayS[i].setLookAndFeel (&laf2);
         
-        
         panS[i].setSliderStyle (Slider::LinearBarVertical);
-        panS[i].setRange (-1, 1, 0.01);
+        panS[i].setRange (-1.0f, 1.0f, 0.01);
         panS[i].setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
         panS[i].setPopupDisplayEnabled (true, this);
         panS[i].setTextValueSuffix (" Pan");
@@ -88,13 +82,7 @@ NewProjectAudioProcessorEditor::NewProjectAudioProcessorEditor (NewProjectAudioP
         panS[i].setLookAndFeel (&laf2);
     }
     
-    
-    
-    startTimer(10);
-    
-//    getLookAndFeel().setColour (Slider::trackColourId, Colours::white);// moved
-//    getLookAndFeel().setColour (Slider::textBoxOutlineColourId, Colour::fromRGBA(255,255,255,40));//moved 
-//
+    startTimer(50);
 }
 
 NewProjectAudioProcessorEditor::~NewProjectAudioProcessorEditor()
@@ -110,14 +98,8 @@ void NewProjectAudioProcessorEditor::timerCallback(){ //update UI from parameter
     
     for(int i = 0; i< 8; i++){
         delayS[i].setValue(theProcessor->delayParameters[i]->get(), dontSendNotification);
-    }
-    
-    for(int i = 0; i< 8; i++){
         panS[i].setValue(theProcessor->panParameters[i]->get(), dontSendNotification);
     }
-    
-    //get pan value
-//     panS[0].setValue(theProcessor->pan[0], dontSendNotification);
     
 }
 
@@ -143,11 +125,6 @@ void NewProjectAudioProcessorEditor::sliderValueChanged (Slider* slider)
     }
 }
     
-//AudioParameterFloat* NewProjectAudioProcessorEditor::getParameterForSlider (Slider* slider)
-//{
-//    const OwnedArray<AudioProcessorParameter>& params = getAudioProcessor()->getParameters();
-//    return dynamic_cast<AudioParameterFloat*> (params[0]);
-//}
 
 //==============================================================================
 void NewProjectAudioProcessorEditor::paint (Graphics& g)

@@ -55,11 +55,17 @@ NewProjectAudioProcessor::NewProjectAudioProcessor()
                                     1.0f,//max
                                     0.5f));//default
         }
+    
+    
+    
+   
 }
 
 NewProjectAudioProcessor::~NewProjectAudioProcessor()
 {
 }
+
+
 
 //==============================================================================
 const String NewProjectAudioProcessor::getName() const
@@ -121,6 +127,8 @@ void NewProjectAudioProcessor::prepareToPlay (double sampleRate, int samplesPerB
         echos[i].initialize(sampleRate);
         echos[i].offset = (i+1)*2; //quarter notes
     }
+    filter1.setCoefficients(IIRCoefficients::makeLowPass(sampleRate, 1000));
+    filter2.setCoefficients(IIRCoefficients::makeLowPass(sampleRate, 1000));
 }
 
 void NewProjectAudioProcessor::releaseResources()
@@ -170,6 +178,7 @@ void NewProjectAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuff
             const float in = channelData[i];
             rwOut(in);
             channelData[i] = effectOut(in, channel); //the final output data
+//            
         }
         // ..do something to the data...
     }
@@ -270,11 +279,9 @@ void NewProjectAudioProcessor::rwClean(){ //reset after each process block
 }
 
 float NewProjectAudioProcessor::effectOut(float _in, int _channel){
-    
-    float effectOut = (*dryMixParameter * _in); //first adds the dry input
  
-    
-    
+    float wet;
+    float effectOut = (*dryMixParameter * _in); //first adds the dry input multiplying it by the dry parameter.
     
     //end parameter
     
@@ -288,17 +295,32 @@ float NewProjectAudioProcessor::effectOut(float _in, int _channel){
         
         if(_channel == 0){
             pValue = (1.0 - pDash);
+//            delayData[i][echos[i].dpr] = filter1.processSingleSampleRaw (delayData[i][echos[i].dpr]);
+            
             
         }
         else if(_channel == 1){
             pValue = pDash;
-        }   
+//            delayData[i][echos[i].dpr] = filter2.processSingleSampleRaw (delayData[i][echos[i].dpr]);
+        }
         
-        effectOut+=(*wetMixParameter
-                    *delayData[i][echos[i].dpr] *
-                    *delayParameters[i]
-                    *pValue
-                    ); //then comes the wet outputs from each delay, multiplied by the global wetMixParameter.
+        wet=(*wetMixParameter
+             *delayData[i][echos[i].dpr] *
+             *delayParameters[i]
+             *pValue
+             );
+        
+        
+        if(_channel == 0){
+            wet = filter1.processSingleSampleRaw (wet);
+        }
+        else if(_channel == 1){
+            
+            wet = filter2.processSingleSampleRaw (wet);
+        }
+        
+        effectOut+=wet;
+        //then comes the wet outputs from each delay, multiplied by the global wetMixParameter.
         
     }
     return effectOut;
