@@ -69,6 +69,8 @@ private:
     
     Slider delayS[8];
     Slider panS[8];
+    
+    Slider filterS[8];
 
     NewProjectAudioProcessor* getProcessor() const
     {

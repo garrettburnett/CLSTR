@@ -76,6 +76,7 @@ public:
     
     AudioParameterFloat* delayParameters[8]; //2-9
     AudioParameterFloat* panParameters[8]; //10-17
+    AudioParameterFloat* filterParameters[8]; //18-25
     
 //    float delayGain[8];
 
@@ -111,6 +112,10 @@ private:
     
     IIRFilter filter1;
     IIRFilter filter2;
+    
+    
+    IIRFilter lFilters[8]; //8 for the left channel
+    IIRFilter rFilters[8];//and 8 for the right channel.
    
     
     

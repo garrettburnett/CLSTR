@@ -80,6 +80,20 @@ NewProjectAudioProcessorEditor::NewProjectAudioProcessorEditor (NewProjectAudioP
         mt.getTabContentComponent(1)->addAndMakeVisible(&panS[i]);
         panS[i].addListener(this);
         panS[i].setLookAndFeel (&laf2);
+        
+        
+        //FILTERS
+        
+        filterS[i].setSliderStyle (Slider::LinearBarVertical);
+        filterS[i].setRange (0, 22000, 1);
+        filterS[i].setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
+        filterS[i].setPopupDisplayEnabled (true, this);
+        filterS[i].setTextValueSuffix (" Hz");
+//        filterS[i].setValue(p.panParameters[i]->get());
+        //        addAndMakeVisible (&delaysWet[i]);
+        mt.getTabContentComponent(3)->addAndMakeVisible(&filterS[i]);
+        filterS[i].addListener(this);
+        filterS[i].setLookAndFeel (&laf2);
     }
     
     startTimer(50);
@@ -99,6 +113,7 @@ void NewProjectAudioProcessorEditor::timerCallback(){ //update UI from parameter
     for(int i = 0; i< 8; i++){
         delayS[i].setValue(theProcessor->delayParameters[i]->get(), dontSendNotification);
         panS[i].setValue(theProcessor->panParameters[i]->get(), dontSendNotification);
+        filterS[i].setValue(theProcessor->filterParameters[i]->get(), dontSendNotification);
     }
     
 }
@@ -121,6 +136,9 @@ void NewProjectAudioProcessorEditor::sliderValueChanged (Slider* slider)
         }
         if (slider == &panS[i]){//indexes 2-9,
             getProcessor()->setParameterNotifyingHost(i+10, (float) panS[i].getValue());
+        }
+        if (slider == &filterS[i]){//indexes 2-9,
+            getProcessor()->setParameterNotifyingHost(i+18, (float) filterS[i].getValue());
         }
     }
 }
@@ -164,6 +182,7 @@ void NewProjectAudioProcessorEditor::resized()
     for(int i = 0; i< 8; i++){
         delayS[i].setBounds ((77*(i)), 0, 11, mt.getHeight()-30);
         panS[i].setBounds ((77*(i)), 0, 11, mt.getHeight()-30);
+         filterS[i].setBounds ((77*(i)), 0, 11, mt.getHeight()-30);
     }
     
 }

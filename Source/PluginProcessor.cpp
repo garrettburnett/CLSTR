@@ -57,6 +57,16 @@ NewProjectAudioProcessor::NewProjectAudioProcessor()
         }
     
     
+    for(int i =0; i<numDelays;i++){
+        addParameter(filterParameters[i] =
+                     new AudioParameterFloat("Filter " + to_string(i+1), //ID
+                                             "Filter " + to_string(i+1), //NAME
+                                             0,//min
+                                             22000,//max
+                                            22000));//default
+    }
+    
+    
     
    
 }
@@ -126,6 +136,9 @@ void NewProjectAudioProcessor::prepareToPlay (double sampleRate, int samplesPerB
     for(int i = 0; i<numDelays; i++){ //initialize delays and set offsets.
         echos[i].initialize(sampleRate);
         echos[i].offset = (i+1)*2; //quarter notes
+        
+        lFilters[i].setCoefficients(IIRCoefficients::makeLowPass(sampleRate, *filterParameters[i]));
+        rFilters[i].setCoefficients(IIRCoefficients::makeLowPass(sampleRate, *filterParameters[i]));
     }
     filter1.setCoefficients(IIRCoefficients::makeLowPass(sampleRate, 1000));
     filter2.setCoefficients(IIRCoefficients::makeLowPass(sampleRate, 1000));
@@ -213,6 +226,7 @@ void NewProjectAudioProcessor::getStateInformation (MemoryBlock& destData)
      for(int i = 0; i<numDelays; i++){
          MemoryOutputStream (destData, true).writeFloat(*delayParameters[i]);
           MemoryOutputStream (destData, true).writeFloat(*panParameters[i]);
+         MemoryOutputStream (destData, true).writeFloat(*filterParameters[i]);
      }
     
     
@@ -229,6 +243,7 @@ void NewProjectAudioProcessor::setStateInformation (const void* data, int sizeIn
     for(int i = 0; i<numDelays; i++){
         *delayParameters[i] = MemoryInputStream (data, static_cast<size_t> (sizeInBytes), false).readFloat();
          *panParameters[i] = MemoryInputStream (data, static_cast<size_t> (sizeInBytes), false).readFloat();
+         *filterParameters[i] = MemoryInputStream (data, static_cast<size_t> (sizeInBytes), false).readFloat();
 
         
     }
@@ -287,6 +302,9 @@ float NewProjectAudioProcessor::effectOut(float _in, int _channel){
     
     for(int i = 0; i<numDelays; i++){
         
+        lFilters[i].setCoefficients(IIRCoefficients::makeLowPass(getSampleRate(), *filterParameters[i]));
+        rFilters[i].setCoefficients(IIRCoefficients::makeLowPass(getSampleRate(), *filterParameters[i]));
+        
         
         //calculate parameter//
         
@@ -310,13 +328,12 @@ float NewProjectAudioProcessor::effectOut(float _in, int _channel){
              *pValue
              );
         
-        
         if(_channel == 0){
-            wet = filter1.processSingleSampleRaw (wet);
+            wet = lFilters[i].processSingleSampleRaw (wet);
         }
         else if(_channel == 1){
             
-            wet = filter2.processSingleSampleRaw (wet);
+            wet = rFilters[i].processSingleSampleRaw (wet);
         }
         
         effectOut+=wet;
