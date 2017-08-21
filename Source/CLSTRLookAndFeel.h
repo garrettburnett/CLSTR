@@ -39,10 +39,19 @@ public:
    void drawTabButton(TabBarButton& button, Graphics& g, bool isMouseOver, bool isMouseDown) override;
         int getTabButtonBestWidth(TabBarButton&, int tabDepth) override;
     
-    
+    void drawTabButtonText(Graphics& g,
+                           int x, int y, int w, int h,
+                           const Colour& preferredBackgroundColour,
+                           int /*tabIndex*/,
+                           const String& text,
+                           Button& button,
+                           TabbedButtonBar::Orientation orientation,
+                           const bool isMouseOver,
+                           const bool isMouseDown,
+                           const bool isFrontTab);
     
 private:
-        
+    
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(CLSTRLookAndFeel2);
 };
 

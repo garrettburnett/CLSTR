@@ -67,21 +67,22 @@ public:
     AudioPlayHead::CurrentPositionInfo currentPositionInfo;
     
     
-    AudioParameterFloat* wetMixParameter;//index 0
+    AudioParameterFloat* wetMixParameter;
 //    float wetMix;
-    AudioParameterFloat* dryMixParameter;//index 1
+    AudioParameterFloat* dryMixParameter;
 //    float dryMix;
     
     
-    
-    AudioParameterFloat* delayParameters[8]; //2-9
-    AudioParameterFloat* panParameters[8]; //10-17
-    AudioParameterFloat* filterParameters[8]; //18-25
+    AudioParameterFloat* delayParameters[8];
+    AudioParameterFloat* panParameters[8];
+    AudioParameterFloat* filterParameters[8];
     
 //    float delayGain[8];
 
 
 private:
+    
+    float scale(float val, float min, float max);
     
     const static int numDelays = 8;
     EchoChamber echos[numDelays];   //an array of echos.

@@ -48,10 +48,11 @@ NewProjectAudioProcessor::NewProjectAudioProcessor()
     }
     
     for(int i =0; i<numDelays;i++){
+        
         addParameter(panParameters[i] =
             new AudioParameterFloat("Pan " + to_string(i+1), //ID
                                     "Pan " + to_string(i+1), //NAME
-                                    -1.0f,//min
+                                    0.0f,//min
                                     1.0f,//max
                                     0.5f));//default
         }
@@ -61,9 +62,9 @@ NewProjectAudioProcessor::NewProjectAudioProcessor()
         addParameter(filterParameters[i] =
                      new AudioParameterFloat("Filter " + to_string(i+1), //ID
                                              "Filter " + to_string(i+1), //NAME
-                                             0,//min
-                                             22000,//max
-                                            22000));//default
+                                             0.0f,//min
+                                             1.0f,//max
+                                            0.5f));//default
     }
     
     
@@ -302,20 +303,19 @@ float NewProjectAudioProcessor::effectOut(float _in, int _channel){
     
     for(int i = 0; i<numDelays; i++){
         
-        lFilters[i].setCoefficients(IIRCoefficients::makeLowPass(getSampleRate(), *filterParameters[i]));
-        rFilters[i].setCoefficients(IIRCoefficients::makeLowPass(getSampleRate(), *filterParameters[i]));
-        
-        
+        lFilters[i].setCoefficients(IIRCoefficients::makeLowPass(getSampleRate(),
+                                                                 scale(*filterParameters[i], 10.0,22000.0)
+                                                                 ));
+        rFilters[i].setCoefficients(IIRCoefficients::makeLowPass(getSampleRate(),
+                                                                 scale(*filterParameters[i], 10.0,22000.0)
+                                                                 ));
         //calculate parameter//
-        
-        float pDash = (*panParameters[i] + 1.0)/ 2.0;
+        float pDash = (scale(*panParameters[i],-1.0 , 1.0) + 1.0)/ 2.0;
         float pValue;
         
         if(_channel == 0){
             pValue = (1.0 - pDash);
 //            delayData[i][echos[i].dpr] = filter1.processSingleSampleRaw (delayData[i][echos[i].dpr]);
-            
-            
         }
         else if(_channel == 1){
             pValue = pDash;
@@ -343,6 +343,14 @@ float NewProjectAudioProcessor::effectOut(float _in, int _channel){
     return effectOut;
 }
 
+
+float NewProjectAudioProcessor::scale(float val, float min, float max){
+
+    float range = (max) - (min);
+    return (val*range) + min;
+
+    
+}
 
 //==============================================================================
 // This creates new instances of the plugin..

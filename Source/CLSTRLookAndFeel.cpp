@@ -89,7 +89,7 @@ void CLSTRLookAndFeel2::drawLinearSlider(Graphics& g,
     
 }
 
-int CLSTRLookAndFeel2::getTabButtonBestWidth(TabBarButton&, int)   { return 110; }
+int CLSTRLookAndFeel2::getTabButtonBestWidth(TabBarButton&, int)   { return 112; }
 
 
 static Colour getTabBackgroundColour(TabBarButton& button){
@@ -102,24 +102,77 @@ static Colour getTabBackgroundColour(TabBarButton& button){
 }
 
 void CLSTRLookAndFeel2::drawTabButton(TabBarButton& button, Graphics& g, bool isMouseOver, bool isMouseDown){
+//    Rectangle<int> activeArea(button.getActiveArea());
+//    Colour color  = Colour::fromRGB(255, 255, 255);
+//    
+//   
+//
+//    g.setColour(color);
+//    //draw the outline.
+//    g.drawRect(activeArea, 1);
+//    TextLayout textLayout;
+//    Font secondaryFont("Montserrat", 12.0f, Font::plain);
+//    g.setFont(secondaryFont);
+//    
+//    
+//    LookAndFeel_V3::createTabTextLayout(button, float(activeArea.getWidth()), float(activeArea.getHeight()), color, textLayout);
+//        textLayout.draw(g, button.getTextArea().toFloat());
+    
+    
     
     
     Rectangle<int> activeArea(button.getActiveArea());
-    activeArea = activeArea.withTrimmedBottom(1);
+//    activeArea = activeArea.withTrimmedBottom(1);
     
     const Colour bkg(getTabBackgroundColour(button));
+    g.setColour(Colour::fromRGB(255, 255, 255));
+
+    g.drawRect(activeArea,1);
     
     g.setGradientFill(ColourGradient(bkg.brighter(0.1f), 0, float(activeArea.getY()),
                                      bkg.darker(0.1f), 0, float(activeArea.getBottom()), false));
-    g.fillRect(activeArea);
-    g.drawRect(activeArea);
+    
+  
     
     const float alpha = button.isEnabled() ? ((isMouseOver || isMouseDown) ? 1.f : 0.8f) : 0.3f;
     const Colour col(bkg.contrasting().withMultipliedAlpha(alpha));
     
+    g.fillRect(activeArea);
+    
+    
+    
     TextLayout textLayout;
+    
     LookAndFeel_V3::createTabTextLayout(button, float(activeArea.getWidth()), float(activeArea.getHeight()), col, textLayout);
     
     textLayout.draw(g, button.getTextArea().toFloat());
+    
+    
+}
+
+
+void CLSTRLookAndFeel2::drawTabButtonText(Graphics& g,
+                                          int x, int y, int w, int h,
+                                          const Colour& preferredBackgroundColour,
+                                          int /*tabIndex*/,
+                                          const String& text,
+                                          Button& button,
+                                          TabbedButtonBar::Orientation orientation,
+                                          const bool isMouseOver,
+                                          const bool isMouseDown,
+                                          const bool isFrontTab){
+    
+    int length = w;
+    int depth = h;
+    GlyphArrangement textLayout;
+    
+    Font secondaryFont("Montserrat", 12.0f, Font::plain);
+    g.setFont(secondaryFont);
+    
+  
+    
+    g.drawFittedText (button.getName().trim(), 0, 0,length, depth, Justification::centred, 1);
+
+
 }
 
