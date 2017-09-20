@@ -1,8 +1,6 @@
 Delay Designer Plugin 
 
-A chain delay VST/AU allowing users to edit an array of delays based on gain. 
-
-Effects for each delay chamber:
+A chain delay VST/AU allowing users to edit an array of delays based on the following effects:
 -Volume
 -Pan
 -Pitch
