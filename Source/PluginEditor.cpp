@@ -16,21 +16,17 @@
 NewProjectAudioProcessorEditor::NewProjectAudioProcessorEditor (NewProjectAudioProcessor& p)
 : AudioProcessorEditor (&p), processor (p), mt(p)
 {
-    
-    
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
     setSize (800, 450);
     LookAndFeel::setDefaultLookAndFeel(&laf);
     LookAndFeel::getDefaultLookAndFeel().setDefaultSansSerifTypefaceName ("Montserrat");
     
-    
     startTimer(30);
     //TAB
     addAndMakeVisible(mt);
     
     mt.getTabbedButtonBar();
-    
     
     mt.setOutline(0);
     mt.addTab("VOLUME", Colour::Colour(),new Component(),true);
@@ -55,7 +51,6 @@ NewProjectAudioProcessorEditor::NewProjectAudioProcessorEditor (NewProjectAudioP
     wetMixSlider.setValue(p.wetMixParameter->get());
     wetMixSlider.setLookAndFeel(&laf);
 
-
     dryMixSlider.setSliderStyle (Slider::LinearBarVertical);
     dryMixSlider.setRange(0.0, 1.0, 0.01);
     dryMixSlider.setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
@@ -70,7 +65,8 @@ NewProjectAudioProcessorEditor::NewProjectAudioProcessorEditor (NewProjectAudioP
     addAndMakeVisible (&dryMixSlider);
     dryMixSlider.addListener(this);
     
-    for(int i = 0; i< 8; i++){ //for each echo chamber
+    for(int i = 0; i< 8; i++)
+    { //for each echo chamber
         delayS[i].setSliderStyle (Slider::LinearBarVertical);
         delayS[i].setRange(0.0, 1.0, 0.01);
         delayS[i].setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
@@ -102,7 +98,6 @@ NewProjectAudioProcessorEditor::NewProjectAudioProcessorEditor (NewProjectAudioP
         filterS[i].setLookAndFeel (&laf2);
     }
     
-    
     mt.getTabbedButtonBar().getTabButton(0)->addListener(this);
     mt.getTabbedButtonBar().getTabButton(1)->addListener(this);
     mt.getTabbedButtonBar().getTabButton(2)->addListener(this);
@@ -117,38 +112,45 @@ NewProjectAudioProcessorEditor::~NewProjectAudioProcessorEditor()
 
 
 
-void NewProjectAudioProcessorEditor::timerCallback(){ //update UI from parameter changes
+void NewProjectAudioProcessorEditor::timerCallback()
+{ //update UI from parameter changes
    
     wetMixSlider.setValue(processor.wetMixParameter->get(), dontSendNotification);
     dryMixSlider.setValue(processor.dryMixParameter->get(), dontSendNotification);
 
-    for(int i = 0; i<8; i++){
+    for(int i = 0; i<8; i++)
+    {
         delayS[i].setValue(processor.delayParameters[i]->get(), dontSendNotification);
         panS[i].setValue(processor.panParameters[i]->get(), dontSendNotification);
         filterS[i].setValue(processor.filterParameters[i]->get(), dontSendNotification);
-        
     }
 }
 
 void NewProjectAudioProcessorEditor::sliderValueChanged (Slider *slider)
 
 {
-    if (slider == &wetMixSlider){//index 0,
+    if (slider == &wetMixSlider)
+    {//index 0,
         processor.wetMixParameter->setValueNotifyingHost((float) wetMixSlider.getValue());
     }
-    else if (slider == &dryMixSlider){//index 1,
+    else if (slider == &dryMixSlider)
+    {//index 1,
         processor.dryMixParameter->setValueNotifyingHost((float) dryMixSlider.getValue());
     }
     
-    for( int i = 0; i<8; i++){
-        if (slider == &delayS[i]){
+    for( int i = 0; i<8; i++)
+    {
+        if (slider == &delayS[i])
+        {
             processor.delayParameters[i]->setValueNotifyingHost((float) delayS[i].getValue());
         }
         
-        if (slider == &panS[i]){
+        if (slider == &panS[i])
+        {
             processor.panParameters[i]->setValueNotifyingHost((float) panS[i].getValue());
         }
-        if (slider == &filterS[i]){
+        if (slider == &filterS[i])
+        {
             processor.filterParameters[i]->setValueNotifyingHost((float) filterS[i].getValue());
         }
     }
@@ -158,28 +160,32 @@ void NewProjectAudioProcessorEditor::sliderValueChanged (Slider *slider)
 void NewProjectAudioProcessorEditor::buttonClicked (Button* button)
 {//this function changes the component background color on new tab.
     
-    if(button == mt.getTabbedButtonBar().getTabButton(0)){
+    if(button == mt.getTabbedButtonBar().getTabButton(0))
+    {
         active1 = vol1;
         active2 = vol2;
     }
-    else if(button == mt.getTabbedButtonBar().getTabButton(1)){
+    else if(button == mt.getTabbedButtonBar().getTabButton(1))
+    {
         active1 = pan1;
         active2 = pan2;
     }
-    else if(button == mt.getTabbedButtonBar().getTabButton(2)){
+    else if(button == mt.getTabbedButtonBar().getTabButton(2))
+    {
         active1 = pitch1;
         active2 = pitch2;
     }
  
-    else if(button == mt.getTabbedButtonBar().getTabButton(3)){
+    else if(button == mt.getTabbedButtonBar().getTabButton(3))
+    {
         active1 = filter1;
         active2 = filter2;
     }
-    else if(button == mt.getTabbedButtonBar().getTabButton(4)){
+    else if(button == mt.getTabbedButtonBar().getTabButton(4))
+    {
         active1 = bit1;
         active2 = bit2;
     }
-    
     repaint(); //repaint entire component
 }
 
@@ -187,7 +193,6 @@ void NewProjectAudioProcessorEditor::buttonClicked (Button* button)
 //==============================================================================
 void NewProjectAudioProcessorEditor::paint (Graphics& g)
 {
- 
     g.setGradientFill(ColourGradient(
                         active1,0,0,
                         active2,(float)getWidth(),(float) getHeight(), false));
@@ -211,14 +216,13 @@ void NewProjectAudioProcessorEditor::paint (Graphics& g)
     g.setColour (Colours::white);
     g.drawLine(125, 371, 673, 371,3 );
 
-    for(int i = 0; i< 9; i++){
+    for(int i = 0; i< 9; i++)
+    {
         int offset = i * 30;
-        
         g.setColour(Colour::fromRGBA(255, 255, 255, 50));
         g.drawLine(125, 341 - offset, 675, 341 - offset);
         
     }
-    
     
 }
 
@@ -228,8 +232,6 @@ void NewProjectAudioProcessorEditor::resized()
     dryMixSlider.setBounds (43, 100, 20, 250);
     
     mt.setBounds(125,100,550, getHeight()-150);
-    
-  
     
     for(int i = 0; i< 8; i++){
         delayS[i].setBounds ((77*(i)), -1, 11, mt.getHeight()-30);

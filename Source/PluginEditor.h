@@ -80,7 +80,6 @@ private:
         return static_cast <NewProjectAudioProcessor*> (getAudioProcessor());
     }
     
-    
     //Color sets
     Colour vol1 = Colour::fromRGB(73, 135, 207);
     Colour vol2 = Colour::fromRGB(0, 68, 147);
@@ -99,6 +98,5 @@ private:
     
     Colour active1 = vol1;
     Colour active2 = vol1;
-    
-//    Image background = ImageCache::getFromMemory (BinaryData::filename_ext, BinaryData::filename_extSize);
+
 };

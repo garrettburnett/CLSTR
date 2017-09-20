@@ -58,26 +58,18 @@ public:
     void getStateInformation (MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
   
-    
     float getBPM();
     
-    
     AudioPlayHead* playHead;
-    
     AudioPlayHead::CurrentPositionInfo currentPositionInfo;
     
-    
     AudioParameterFloat* wetMixParameter;
-//    float wetMix;
     AudioParameterFloat* dryMixParameter;
-//    float dryMix;
-    
     
     AudioParameterFloat* delayParameters[8];
     AudioParameterFloat* panParameters[8];
     AudioParameterFloat* filterParameters[8];
     
-//    float delayGain[8];
 
 
 private:
@@ -91,36 +83,16 @@ private:
    
     void syncBPM();
     void rwIn(int _channel);
-    
     void rwOut(float _in);
-    
     void rwClean();
-    
     float effectOut(float _in, int _channel);
-    
-    
-    void filterKernel();
-    void calculateFilterCoefficients(float inCutoffFrequency);
-    
-    AudioParameterFloat *parameterCutoff;
-    float   *bKernel,
-    *aKernel,
-    *inFilterBuffer,
-    *outFilterBuffer,
-    previousCutoff;
-    enum {sampleLimit = (int)10E6};
-    
-    
+
     IIRFilter filter1;
     IIRFilter filter2;
-    
     
     IIRFilter lFilters[8]; //8 for the left channel
     IIRFilter rFilters[8];//and 8 for the right channel.
    
-    
-    
-    
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (NewProjectAudioProcessor)
 };

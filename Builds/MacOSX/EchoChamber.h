@@ -11,14 +11,13 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
-class EchoChamber{
-    
+class EchoChamber
+{
 public:
     EchoChamber();
     ~EchoChamber();
     float delayLength;
     float delayInSamples;
-    
     
     float feedback = 0; //No feedback in this plugin
     
@@ -36,9 +35,7 @@ public:
     
     float* delayData(int _channel);
     
-    
 private:
-    
     
 };
 

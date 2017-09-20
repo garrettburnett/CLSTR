@@ -13,13 +13,13 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 
 
-class CLSTRLookAndFeel : public LookAndFeel_V4{
+class CLSTRLookAndFeel : public LookAndFeel_V4
+{
     
 public:
     
     CLSTRLookAndFeel();
     virtual ~CLSTRLookAndFeel();
-    
     virtual void drawLinearSlider(Graphics& g, int x, int y, int width, int height, float sliderPos, float minSliderPos, float maxSliderPos,
                                   const Slider::SliderStyle style, Slider& slider);
     
@@ -36,7 +36,7 @@ public:
     virtual void drawLinearSlider(Graphics& g, int x, int y, int width, int height, float sliderPos, float minSliderPos, float maxSliderPos,
                                   const Slider::SliderStyle style, Slider& slider);
     
-   void drawTabButton(TabBarButton& button, Graphics& g, bool isMouseOver, bool isMouseDown) override;
+    void drawTabButton(TabBarButton& button, Graphics& g, bool isMouseOver, bool isMouseDown) override;
         int getTabButtonBestWidth(TabBarButton&, int tabDepth) override;
     
     void drawTabButtonText(Graphics& g,

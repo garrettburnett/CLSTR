@@ -38,7 +38,8 @@ NewProjectAudioProcessor::NewProjectAudioProcessor()
                                                            1.0f,//max
                                                            0.5f));//default
     
-    for(int i =0; i<numDelays;i++){
+    for(int i =0; i<numDelays;i++)
+    {
         addParameter(delayParameters[i] =
             new AudioParameterFloat("Dry Level " + to_string(i+1), //ID
                                     "Delay Level " + to_string(i+1), //NAME
@@ -47,18 +48,19 @@ NewProjectAudioProcessor::NewProjectAudioProcessor()
                                     0.5f));//default
     }
     
-    for(int i =0; i<numDelays;i++){
-        
+    for(int i =0; i<numDelays;i++)
+    {
         addParameter(panParameters[i] =
             new AudioParameterFloat("Pan " + to_string(i+1), //ID
                                     "Pan " + to_string(i+1), //NAME
                                     0.0f,//min
                                     1.0f,//max
                                     0.5f));//default
-        }
+    }
     
     
-    for(int i =0; i<numDelays;i++){
+    for(int i =0; i<numDelays;i++)
+    {
         addParameter(filterParameters[i] =
                      new AudioParameterFloat("Filter " + to_string(i+1), //ID
                                              "Filter " + to_string(i+1), //NAME
@@ -134,15 +136,14 @@ void NewProjectAudioProcessor::changeProgramName (int index, const String& newNa
 //==============================================================================
 void NewProjectAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-    for(int i = 0; i<numDelays; i++){ //initialize delays and set offsets.
+    for(int i = 0; i<numDelays; i++)
+    { //initialize delays and set offsets.
         echos[i].initialize(sampleRate);
         echos[i].offset = (i+1)*2; //quarter notes
         
         lFilters[i].setCoefficients(IIRCoefficients::makeLowPass(sampleRate, *filterParameters[i]));
         rFilters[i].setCoefficients(IIRCoefficients::makeLowPass(sampleRate, *filterParameters[i]));
     }
-    filter1.setCoefficients(IIRCoefficients::makeLowPass(sampleRate, 1000));
-    filter2.setCoefficients(IIRCoefficients::makeLowPass(sampleRate, 1000));
 }
 
 void NewProjectAudioProcessor::releaseResources()
@@ -188,13 +189,12 @@ void NewProjectAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuff
         //do for each channel (L and Right)
         float* channelData = buffer.getWritePointer (channel);
         rwIn(channel);
-        for(int i =0;i< numSamples; ++i){
+        for(int i =0;i< numSamples; ++i)
+        {
             const float in = channelData[i];
             rwOut(in);
             channelData[i] = effectOut(in, channel); //the final output data
-//            
         }
-        // ..do something to the data...
     }
     rwClean(); //prepare for the next data loop
     
@@ -224,7 +224,8 @@ void NewProjectAudioProcessor::getStateInformation (MemoryBlock& destData)
     
     MemoryOutputStream (destData, true).writeFloat(*dryMixParameter);
     
-     for(int i = 0; i<numDelays; i++){
+     for(int i = 0; i<numDelays; i++)
+     {
          MemoryOutputStream (destData, true).writeFloat(*delayParameters[i]);
           MemoryOutputStream (destData, true).writeFloat(*panParameters[i]);
          MemoryOutputStream (destData, true).writeFloat(*filterParameters[i]);
@@ -245,38 +246,41 @@ void NewProjectAudioProcessor::setStateInformation (const void* data, int sizeIn
         *delayParameters[i] = MemoryInputStream (data, static_cast<size_t> (sizeInBytes), false).readFloat();
          *panParameters[i] = MemoryInputStream (data, static_cast<size_t> (sizeInBytes), false).readFloat();
          *filterParameters[i] = MemoryInputStream (data, static_cast<size_t> (sizeInBytes), false).readFloat();
-
-        
     }
 }
 
-float NewProjectAudioProcessor::getBPM(){
-    
+float NewProjectAudioProcessor::getBPM()
+{
     playHead = getPlayHead();
     playHead->getCurrentPosition(currentPositionInfo);
     float hostBPM = currentPositionInfo.bpm;
     return hostBPM;
-    
 }
 
-void NewProjectAudioProcessor::syncBPM(){ //maintains sychronicity of delay buffers based on host bpm.
+void NewProjectAudioProcessor::syncBPM()
+{ //maintains sychronicity of delay buffers based on host bpm.
     
-     for(int i = 0; i<numDelays; i++){
+     for(int i = 0; i<numDelays; i++)
+     {
          echos[i].setDelayLength(getBPM(), getSampleRate());
          echos[i].delayReadPosition = int(echos[i].delayWritePosition - echos[i].delayInSamples + echos[i].delayBufferLength) %echos[i].delayBufferLength;
      }
 }
 
-void NewProjectAudioProcessor::rwIn(int _channel){ //sets upthe temp read writes for each process block
-    for(int i = 0; i<numDelays; i++){
+void NewProjectAudioProcessor::rwIn(int _channel)
+{ //sets upthe temp read writes for each process block
+    for(int i = 0; i<numDelays; i++)
+    {
         delayData[i] =  echos[i].delayData(_channel);
         echos[i].dpr=echos[i].delayReadPosition;
         echos[i].dpw=echos[i].delayWritePosition;
     }
 }
 
-void NewProjectAudioProcessor::rwOut(float _in){
-    for(int i = 0; i<numDelays; i++){
+void NewProjectAudioProcessor::rwOut(float _in)
+{
+    for(int i = 0; i<numDelays; i++)
+    {
         delayData[i][echos[i].dpw] = _in + (delayData[i][echos[i].dpr] * 0); //actually writes delayed data to the delay data buffer.
         
         if (++echos[i].dpr >= echos[i].delayBufferLength)
@@ -287,22 +291,24 @@ void NewProjectAudioProcessor::rwOut(float _in){
     }
 }
 
-void NewProjectAudioProcessor::rwClean(){ //reset after each process block
-    for(int i = 0; i<numDelays; i++){
+void NewProjectAudioProcessor::rwClean()
+{ //reset after each process block
+    for(int i = 0; i<numDelays; i++)
+    {
         echos[i].delayReadPosition = echos[i].dpr;
         echos[i].delayWritePosition = echos[i].dpw;
     }
 }
 
-float NewProjectAudioProcessor::effectOut(float _in, int _channel){
- 
+float NewProjectAudioProcessor::effectOut(float _in, int _channel)
+{
     float wet;
     float effectOut = (*dryMixParameter * _in); //first adds the dry input multiplying it by the dry parameter.
     
     //end parameter
     
-    for(int i = 0; i<numDelays; i++){
-        
+    for(int i = 0; i<numDelays; i++)
+    {
         lFilters[i].setCoefficients(IIRCoefficients::makeLowPass(getSampleRate(),
                                                                  scale(*filterParameters[i], 10.0,22000.0)
                                                                  ));
@@ -313,13 +319,14 @@ float NewProjectAudioProcessor::effectOut(float _in, int _channel){
         float pDash = (scale(*panParameters[i],-1.0 , 1.0) + 1.0)/ 2.0;
         float pValue;
         
-        if(_channel == 0){
+        if(_channel == 0)
+        {
             pValue = (1.0 - pDash);
-//            delayData[i][echos[i].dpr] = filter1.processSingleSampleRaw (delayData[i][echos[i].dpr]);
         }
-        else if(_channel == 1){
+        
+        else if(_channel == 1)
+        {
             pValue = pDash;
-//            delayData[i][echos[i].dpr] = filter2.processSingleSampleRaw (delayData[i][echos[i].dpr]);
         }
         
         wet=(*wetMixParameter
@@ -328,28 +335,23 @@ float NewProjectAudioProcessor::effectOut(float _in, int _channel){
              *pValue
              );
         
-        if(_channel == 0){
+        if(_channel == 0)
+        {
             wet = lFilters[i].processSingleSampleRaw (wet);
         }
-        else if(_channel == 1){
-            
+        else if(_channel == 1)
+        {
             wet = rFilters[i].processSingleSampleRaw (wet);
         }
-        
         effectOut+=wet;
-        //then comes the wet outputs from each delay, multiplied by the global wetMixParameter.
-        
     }
     return effectOut;
 }
 
-
-float NewProjectAudioProcessor::scale(float val, float min, float max){
-
+float NewProjectAudioProcessor::scale(float val, float min, float max)
+{
     float range = (max) - (min);
     return (val*range) + min;
-
-    
 }
 
 //==============================================================================
