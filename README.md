@@ -9,7 +9,7 @@ Effects for each delay chamber:
 -Filter
 -Bit Crunch
 
-Link to most recent demonstration video: https://drive.google.com/open?id=0B-SYNYBEy2XERnFpWnZ5U3F6TEU
+Link to most recent demonstration video: https://drive.google.com/file/d/0B-SYNYBEy2XEcjBlc3g5OVNoNFU/view?usp=sharing
 
 Mockups for each effect tab/window:
 
